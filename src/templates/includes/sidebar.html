@@ -1,0 +1,31 @@
+    {% load static %}
+    <div class="sidebar" data-color="purple" data-background-color="green" data-image="#">
+      <div class="logo">
+        <a href="/" class="simple-text logo-normal">
+          CasAdmin
+        </a>
+      </div>
+      <div class="sidebar-wrapper">
+        <ul class="nav">
+          <li class="nav-item {% if 'home' == segment %} active {% endif %}">
+            <a class="nav-link" href="/">
+              <i class="material-icons">home</i>
+              <p>Casa</p>
+            </a>
+          </li>
+          <li class="nav-item {% if 'page-user' in segment %} active {% endif %}">
+            <a class="nav-link" href="/page-user.html">
+              <i class="material-icons">paid</i>
+              <p>Mis transacciones</p>
+            </a>
+          </li>
+          <li class="nav-item {% if 'ui-tables' in segment %} active {% endif %}">
+            <a class="nav-link" href="/ui-tables.html">
+              <i class="material-icons">settings</i>
+              <p>Configuración</p>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+    </div>

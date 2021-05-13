@@ -131,3 +131,6 @@ dmypy.json
 # Docker
 /Docker/Mysql/data/*
 /Docker/Mysql/rollback/*
+
+# static
+/src/static
