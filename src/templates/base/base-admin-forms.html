@@ -1,0 +1,29 @@
+{% extends "base/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header card-header-primary">
+                <h4 class="card-title mt-0">
+                    <i class="material-icons-two-tone" style="font-size: 40px; vertical-align: -6px;">{{ icon }}</i>
+                    <i class="material-icons" style="font-size: 20px; vertical-align: -14px; margin-left: -17px;">{% block icon_form %}{% endblock icon_form %}</i>
+                     NUEVO {{ verbose_name|upper }}
+                </h4>
+            </div>
+            <div class="card-body">
+                {% include 'includes/alert.html' %} 
+                {% block add_form %}
+                    <div class="col-md-12">
+                        <form method="post">
+                            {% csrf_token %}
+                            {{ form | crispy }}
+                            <a class="btn btn-primary" href="{% url url.list %}"><i class="mr-2" data-feather="arrow-left"></i> Volver</a>
+                            <button class="btn btn-success" type="submit"><i class="mr-2" data-feather="save"></i> Guardar</button>
+                        </form>
+                    </div>
+                {% endblock add_form %}
+            </div>
+        </div>
+    </div>
+{% endblock content %}

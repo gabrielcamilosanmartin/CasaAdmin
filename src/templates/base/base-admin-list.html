@@ -1,0 +1,84 @@
+{% extends "base/base.html" %}
+
+{% block content %}
+<div class="col">
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title mt-0">
+                <i class="material-icons-two-tone" style="font-size: 40px; vertical-align: -6px;">{{ icon }}</i>
+                LISTA DE {{ verbose_name_plural|upper }}
+            </h4>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-auto mb-3">
+                    <a class="btn btn-outline-primary" href="{% url url.create %}"><i class="mr-2" data-feather="plus"></i> Nuevo {{ verbose_name }}</a>
+                </div>
+                <div class="col-md">
+                    {% include 'includes/alert.html' %} 
+                </div> 
+            </div>
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        {% block header_table %}{% endblock header_table %}
+                        <th>Acciones</th>
+                    </thead>
+                    <tbody>
+                        {% for object in object_list  %}
+                            <tr>
+                                {% block body_table %}{% endblock body_table %}
+                                {% block action_table %}
+                                    <td>
+                                        <a href="{% url url.edit object.id %}"><i class="material-icons" >edit</i ></a>
+                                        <a href="{% url url.detail object.id %}"><i class="material-icons" >visibility</i ></a>
+                                        <a href="#" data-toggle="modal" data-target="#confirmDelete_{{object.id}}"><i class="material-icons" >delete</i ></a>
+                                        
+                                        <div class="modal fade" id="confirmDelete_{{object.id}}" tabindex="-1" role="dialog">
+                                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h3 class="modal-title">Se eliminara {{ verbose_name }} {{object|upper}} </h3>
+                                                        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        Por favor, confirme para eliminar {{ verbose_name }} 
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <form action="{% url url.delete object.id %}" method="post">
+                                                            {% csrf_token %}
+                                                            <a href="#" class="btn btn-primary" class="close" data-dismiss="modal" aria-label="Close"><i class="mr-2" data-feather="x"></i> Cancelar</a>
+                                                            <button class="btn btn-danger" type="submit"><i class="mr-2" data-feather="trash-2"></i> Eliminar</button>
+                                                        </form>
+                                                        
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                {% endblock action_table %}
+                            </tr>
+                        {% empty %}
+                            No se encontraron {{ verbose_name_plural|lower }}.
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <nav>
+                    <!-- no ocultar, solo desactivar los botones de anterior y siguiente. cambiar por flechas.  -->
+                    <ul class="pagination">
+                        <li class="page-item {% if not page_obj.has_previous %}disabled{% endif %}">
+                            <a href="?page={% if page_obj.has_previous %} {{ page_obj.previous_page_number }} {% else %} # {% endif %}" class="page-link"> &laquo;</a>
+                        </li>
+                        {% for i in paginator.page_range %}
+                            <li class="page-item {% if page_obj.number == i%} active {% endif %}"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                        {% endfor %}
+                        <li class="page-item {% if not page_obj.has_next %}disabled{% endif %}">
+                            <a class="page-link" href="?page={% if page_obj.has_next %} {{ page_obj.next_page_number }} {% else %} # {% endif %}">&raquo;</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

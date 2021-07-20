@@ -1,31 +1,66 @@
-    {% load static %}
-    <div class="sidebar" data-color="purple" data-background-color="green" data-image="#">
-      <div class="logo">
-        <a href="/" class="simple-text logo-normal">
-          CasAdmin
-        </a>
-      </div>
-      <div class="sidebar-wrapper">
-        <ul class="nav">
-          <li class="nav-item {% if 'home' == segment %} active {% endif %}">
-            <a class="nav-link" href="/">
-              <i class="material-icons">home</i>
-              <p>Casa</p>
+{% load static %}
+<nav class="pc-sidebar ">
+    <div class="navbar-wrapper">
+        <div class="m-header">
+            <a href="{% url 'home' %}" class="b-brand">
+                <!-- ========   change your logo hear   ============ -->
+                <img src="{% static "images/logo.png" %}" alt="" class="logo logo-lg">
+                <img src="{% static "images/logo-sm.png" %}" alt="" class="logo logo-sm">
             </a>
-          </li>
-          <li class="nav-item {% if 'page-user' in segment %} active {% endif %}">
-            <a class="nav-link" href="/page-user.html">
-              <i class="material-icons">paid</i>
-              <p>Mis transacciones</p>
-            </a>
-          </li>
-          <li class="nav-item {% if 'ui-tables' in segment %} active {% endif %}">
-            <a class="nav-link" href="/ui-tables.html">
-              <i class="material-icons">settings</i>
-              <p>Configuración</p>
-            </a>
-          </li>
-        </ul>
-      </div>
+        </div>
+        <div class="navbar-content">
+            <ul class="pc-navbar">
+                <li class="pc-item {% if 'home' == segment %} active {% endif %}">
+                    <a href="{% url 'home' %}" class="pc-link ">
+                        <span class="pc-micon">
+                            <i class="material-icons-two-tone">home</i>
+                        </span>
+                        <span class="pc-mtext">
+                            Dashboard
+                        </span>
+                    </a>
+                </li>
 
+                <li class="pc-item {% if 'transactions' == segment %} active {% endif %}">
+                    <a href="#" class="pc-link ">
+                        <span class="pc-micon">
+                            <i class="material-icons-two-tone">paid</i>
+                        </span>
+                        <span class="pc-mtext">
+                            Mis transacciones
+                        </span>
+                    </a>
+                </li>
+
+                <li class="pc-item {% if 'settings' == segment %} active {% endif %}">
+                    <a href="#" class="pc-link ">
+                        <span class="pc-micon">
+                            <i class="material-icons-two-tone">settings</i>
+                        </span>
+                        <span class="pc-mtext">
+                            Configuración
+                        </span>
+                    </a>
+                </li>
+
+                {% if user.is_superuser %}
+                    <li class="pc-item pc-caption">
+                        <label>Administración</label>
+                        <span>Panel de Administración</span>
+                    </li>
+                    
+                    <li class="pc-item {% if 'user' == segment %} active {% endif %}">
+                        <a href="{% url 'userList' %}" class="pc-link ">
+                            <span class="pc-micon">
+                                <i class="material-icons-two-tone">person</i>
+                            </span>
+                            <span class="pc-mtext">
+                                Usuarios
+                            </span>
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
     </div>
+</nav>

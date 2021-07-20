@@ -21,7 +21,7 @@ services:
         container_name: ${APP_NAME}-web
         ports:
             - ${SERVER_PORT}:8000
-        command: bash -c "/wait-for-it.sh --timeout=0 mysql:3306 && python manage.py runserver 0.0.0.0:8000"
+        command: bash -c "/wait-for-it.sh --timeout=0 mysql:3306 && python manage.py runserver 0.0.0.0:8001"
         volumes:
             - ./src:/src
         depends_on:

@@ -1,0 +1,14 @@
+{% extends "base/base-admin-detail.html" %}
+{% load utilities %}
+
+{% block add_detail %}
+    {{ object|detail_row:'username' }}
+    {{ object|detail_row:'is_superuser' }}
+    {{ object|detail_row:'is_staff' }}
+    {{ object|detail_row:'is_active' }}
+    {{ object|detail_row:'first_name' }}
+    {{ object|detail_row:'last_name' }}
+    {{ object|detail_row:'email' }}
+    {{ object|detail_row:'date_joined' }}
+    {{ object|detail_row:'last_login' }}
+{% endblock add_detail %}
