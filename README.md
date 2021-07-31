@@ -31,6 +31,29 @@ Administrador general de la casa enfocado a las finanzas
     DefaultCRUD: retorna nombres de modelo y rutas a las acciones de ese modelo
     Delete: se añadio un eliminado logico [Referencia](https://adriennedomingus.com/blog/soft-deletion-in-django)
 
+- Para las traducciones se deben seguir los siguientes pasos:
+    - Se debe añadir la ruta de las aplicaciones django que contendran traducciones en el setting y el idioma
+
+        ```
+        LANGUAGE_CODE = 'es'
+
+        USE_I18N = True
+
+        USE_L10N = True
+        
+        USE_TZ = True
+
+        LOCALE_PATHS = (
+            os.path.join(BASE_DIR, 'casadmin', 'credentials', 'locale'),
+        )
+        ```
+
+    - Se importa `from django.utils.translation import gettext_lazy as _`. En templates se debe cargar `{% load i18n %}`
+    - El texto se pone entre `_("example text")` se ejecuta. En templates se añade el tag `{% trans 'example text' %}`
+    - Se ejecuta `python manage.py makemessages -a` para generar los archivos .po
+    - Se añaden las traducciones a en los archivos .po
+    - Se ejecuta `python manage.py compilemessages` para compilar las traducciones
+
 ### Problemas comunes en el desarrollo
 - Docker levanta contenedor mysql, sin embargo, no se levanta servicio antes que django lo requiera y proboca que el contenedor `web` no levante, porque django no puede conectar con la base de datos
 

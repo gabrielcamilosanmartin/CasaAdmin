@@ -1,6 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import TemplateView
-from casadmin.home.mixin import *
 
 
 class HomeView(LoginRequiredMixin, TemplateView):

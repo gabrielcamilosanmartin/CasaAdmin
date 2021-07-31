@@ -1,5 +1,6 @@
 from django.contrib.auth.models import AbstractUser
-from casadmin.home.models import SoftDeletionModelUser
+from casadmin.core.models import SoftDeletionModelBase
 
-class User(AbstractUser, SoftDeletionModelUser):
+
+class User(SoftDeletionModelBase, AbstractUser):
     pass

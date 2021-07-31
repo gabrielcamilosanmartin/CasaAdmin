@@ -11,7 +11,9 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
+import os
 from django.contrib.messages import constants as message_constants
+from django.utils.translation import gettext_lazy as _
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -29,7 +31,6 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -39,15 +40,17 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'crispy_forms', # Formulario de bootstrap
+    'crispy_forms',  # Formulario de bootstrap
     # APPS
-    'casadmin.home.apps.HomeConfig',
+    'casadmin.core.apps.CoreConfig',
     'casadmin.users.apps.UsersConfig',
+    'casadmin.credentials.apps.CredentialsConfig'
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -85,7 +88,7 @@ DATABASES = {
         'NAME': 'db_name',
         'USER': 'db_user',
         'PASSWORD': 'db_password',
-        'HOST': 'mysql',   
+        'HOST': 'mysql',
         'PORT': '3306',
     }
 }
@@ -123,6 +126,10 @@ USE_L10N = True
 
 USE_TZ = True
 
+LOCALE_PATHS = (
+    os.path.join(BASE_DIR, 'casadmin', 'credentials', 'locale'),
+)
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
@@ -147,5 +154,5 @@ MESSAGE_TAGS = {
     message_constants.ERROR: 'danger',
 }
 
-AUTH_USER_MODEL  =  'users.user'
-DEFAULT_AUTO_FIELD='django.db.models.AutoField'
+AUTH_USER_MODEL = 'users.user'
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'

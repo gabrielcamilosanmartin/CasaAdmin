@@ -2,9 +2,11 @@ from django.db import models
 from django.utils import timezone
 from django.db.models.query import QuerySet
 
+
 class SoftDeletionQuerySet(QuerySet):
     def delete(self):
-        return super(SoftDeletionQuerySet, self).update(deleted_at=timezone.now())
+        return super(SoftDeletionQuerySet, self).update(
+            deleted_at=timezone.now())
 
     def hard_delete(self):
         return super(SoftDeletionQuerySet, self).delete()
@@ -16,7 +18,7 @@ class SoftDeletionManager(models.Manager):
         super(SoftDeletionManager, self).__init__(*args, **kwargs)
 
     def get_queryset(self):
-        
+
         if self.alive_only:
             return SoftDeletionQuerySet(self.model).filter(deleted_at=None)
         return SoftDeletionQuerySet(self.model)
@@ -27,8 +29,10 @@ class SoftDeletionManager(models.Manager):
 
 class SoftDeletionModelBase(models.Model):
     deleted_at = models.DateTimeField(blank=True, null=True)
+    readonly_fields = ('deleted_at')
 
     all_objects = SoftDeletionManager(alive_only=False)
+    objects = SoftDeletionManager()
 
     class Meta:
         abstract = True
@@ -38,17 +42,4 @@ class SoftDeletionModelBase(models.Model):
         self.save()
 
     def hard_delete(self):
-        super(SoftDeletionModel, self).delete()
-
-
-class SoftDeletionModel(SoftDeletionModelBase):
-    objects = SoftDeletionManager()
-
-    class Meta:
-        abstract = True
-
-class SoftDeletionModelUser(SoftDeletionModelBase):
-    extra_manager = SoftDeletionManager()
-
-    class Meta:
-        abstract = True
+        super(SoftDeletionModelBase, self).delete()

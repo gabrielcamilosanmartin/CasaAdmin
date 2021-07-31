@@ -59,6 +59,46 @@
                             </span>
                         </a>
                     </li>
+                    <li class="pc-item {% if 'bank' == segment %} active {% endif %}">
+                        <a href="{% url 'bankList' %}" class="pc-link ">
+                            <span class="pc-micon">
+                                <i class="material-icons-two-tone">account_balance</i>
+                            </span>
+                            <span class="pc-mtext">
+                                Bancos
+                            </span>
+                        </a>
+                    </li>
+                    <li class="pc-item {% if 'credential' == segment %} active {% endif %}">
+                        <a href="{% url 'credentialList' %}" class="pc-link ">
+                            <span class="pc-micon">
+                                <i class="material-icons-two-tone">badge</i>
+                            </span>
+                            <span class="pc-mtext">
+                                Credenciales
+                            </span>
+                        </a>
+                    </li>
+                    <li class="pc-item {% if 'account' == segment %} active {% endif %}">
+                        <a href="{% url 'accountList' %}" class="pc-link ">
+                            <span class="pc-micon">
+                                <i class="material-icons-two-tone">credit_card</i>
+                            </span>
+                            <span class="pc-mtext">
+                                Cuenta
+                            </span>
+                        </a>
+                    </li>
+                    <li class="pc-item {% if 'accountType' == segment %} active {% endif %}">
+                        <a href="{% url 'accounttypeList' %}" class="pc-link ">
+                            <span class="pc-micon">
+                                <i class="material-icons-two-tone">credit_card</i>
+                            </span>
+                            <span class="pc-mtext">
+                                Tipo de Cuenta
+                            </span>
+                        </a>
+                    </li>
                 {% endif %}
             </ul>
         </div>

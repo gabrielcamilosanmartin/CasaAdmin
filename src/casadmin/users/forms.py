@@ -6,7 +6,15 @@ class UserCreationForm(UserCreationForm):
     class Meta(UserCreationForm.Meta):
         model = User
 
+
 class UserEditForm(UserChangeForm):
     class Meta(UserChangeForm.Meta):
         model = User
-        fields = ['username','first_name','last_name','email','is_superuser','password']
+        fields = [
+            'username',
+            'first_name',
+            'last_name',
+            'email',
+            'is_superuser',
+            'password'
+            ]

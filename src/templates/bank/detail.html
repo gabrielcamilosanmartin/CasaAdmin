@@ -1,0 +1,6 @@
+{% extends "base/base-admin-detail.html" %}
+{% load utilities %}
+
+{% block add_detail %}
+    {{ object|detail_row:'name' }}
+{% endblock add_detail %}

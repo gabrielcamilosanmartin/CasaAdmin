@@ -1,0 +1,13 @@
+{% extends "base/base-admin-list.html" %}
+{% load utilities %}
+
+{% block header_table %}
+    {{object_list|order_by_for_header_table:'id, name'}}
+{% endblock header_table %}
+
+{% block body_table %}
+
+    <td>{{ object.id }}</td>
+    <td>{{ object.name }}</td>
+
+{% endblock body_table %}
